@@ -1,3 +1,6 @@
+
+import java.awt.event.KeyEvent;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -61,6 +64,11 @@ public class frame extends javax.swing.JFrame {
                 TextFieldActionPerformed(evt);
             }
         });
+        TextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TextFieldKeyPressed(evt);
+            }
+        });
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -74,6 +82,11 @@ public class frame extends javax.swing.JFrame {
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton1ActionPerformed(evt);
+            }
+        });
+        jToggleButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jToggleButton1KeyPressed(evt);
             }
         });
 
@@ -181,6 +194,37 @@ public class frame extends javax.swing.JFrame {
     private void answerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_answerActionPerformed
+
+    private void jToggleButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jToggleButton1KeyPressed
+
+    }//GEN-LAST:event_jToggleButton1KeyPressed
+
+    private void TextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextFieldKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            int KeyMonth, KeyYear, WeekNum;
+        String[] splitted = TextField.getText().split("/");
+        int month = Integer.parseInt(splitted[0]);
+        int day = Integer.parseInt(splitted[1]);
+        int year = Integer.parseInt(splitted[2]);
+        
+        //Finding KeyYear
+        int x = year % 100;
+        int module = x % 7;
+        KeyYear = ((x / 4) + module) % 7;
+        if (year >= 2000){
+            KeyYear -= 1;
+        }
+
+        //Finding KeyMonth
+        int VetMonth[] = {1, 4, 4, 0, 2, 5, 0, 3, 6, 1, 4, 6};
+        KeyMonth = (VetMonth[month - 1]);
+        
+        WeekNum = (day + KeyMonth + KeyYear) % 7;
+        String DayWeek[] = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+        answer.setText(DayWeek[WeekNum]);
+        }
+    }//GEN-LAST:event_TextFieldKeyPressed
 
     /**
      * @param args the command line arguments
